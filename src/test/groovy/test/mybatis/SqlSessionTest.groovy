@@ -60,17 +60,25 @@ class SqlSessionTest {
 
     @Test
     public void deleteBlog() throws Exception {
-        int expectedEffectLines=1;
-        session.getMapper(BlogMapper).deleteBlog(1)==expectedEffectLines;
+        int expectedEffectLines = 1;
+        assert session.getMapper(BlogMapper).deleteBlog(1) == expectedEffectLines;
         session.commit();
         resetSession();
         assert session.getMapper(BlogMapper.class).selectBlog(1) == null;
     }
 
     @Test
+    public void autoCommitTurnedOff() throws Exception {
+        int expectedEffectLines = 1;
+        assert session.getMapper(BlogMapper).deleteBlog(1) == expectedEffectLines;
+        resetSession();
+        assert session.getMapper(BlogMapper.class).selectBlog(1).title == "MyBatis";
+    }
+
+    @Test
     public void updateBlog() throws Exception {
         int expectedEffectLines = 1;
-        session.getMapper(BlogMapper).updateBlog(new Blog(id: 1, title: 'mybatis')) == expectedEffectLines;
+        assert session.getMapper(BlogMapper).updateBlog(new Blog(id: 1, title: 'mybatis')) == expectedEffectLines;
         session.commit();
         resetSession();
         assert session.getMapper(BlogMapper.class).selectBlog(1).title == "mybatis";
