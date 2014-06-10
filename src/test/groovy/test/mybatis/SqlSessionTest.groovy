@@ -7,22 +7,22 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mybatis.pojos.Blog
+import org.mybatis.mapper.BlogMapper
 
 /**
  * @author Administrator
  * @version 1.0 2014/6/10,15:33
  */
 class SqlSessionTest {
-    private SqlSession session
+    private SqlSession session;
 
     @Before
     public void beginSession() throws Exception {
         SqlSessionFactoryBuilder sessionFactoryBuilder = new SqlSessionFactoryBuilder()
         SqlSessionFactory sessionFactory = sessionFactoryBuilder.build(Resources.getResourceAsReader("mybatis.xml"));
         assert sessionFactory;
-        session = sessionFactory.openSession()
-        assert this.session;
+        session = sessionFactory.openSession();
+        assert session;
     }
 
     @After
@@ -32,7 +32,11 @@ class SqlSessionTest {
 
     @Test
     public void queryFromStatement() throws Exception {
-        Blog blog = session.selectOne("org.mybatis.mapper.BlogMapper.selectBlog", 1);
-        assert blog.title == "MyBatis";
+        assert session.selectOne("org.mybatis.mapper.BlogMapper.selectBlog", 1).title == "MyBatis";
+    }
+
+    @Test
+    public void queryByMapper() throws Exception {
+        assert session.getMapper(BlogMapper.class).selectBlog(1).title == "MyBatis";
     }
 }
