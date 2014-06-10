@@ -16,7 +16,8 @@ import org.mybatis.pojos.Blog
  */
 class SqlSessionTest {
     private SqlSession session
-    private SqlSessionFactory sessionFactory;
+    private SqlSessionFactory sessionFactory
+    private BlogMapper blogs;
 
     @Before
     public void beginSession() throws Exception {
@@ -24,6 +25,7 @@ class SqlSessionTest {
         sessionFactory = sessionFactoryBuilder.build(Resources.getResourceAsReader("mybatis.xml"))
         assert sessionFactory;
         resetSession();
+        blogs = session.getMapper(BlogMapper);
     }
 
     private void resetSession() {
@@ -52,7 +54,7 @@ class SqlSessionTest {
     @Test
     public void insertBlog() throws Exception {
         int expectedEffectLines = 1;
-        assert session.getMapper(BlogMapper).createNewBlog(new Blog(id: 3, title: 'Groovy')) == expectedEffectLines;
+        assert blogs.createNewBlog(new Blog(id: 3, title: 'Groovy')) == expectedEffectLines;
         session.commit();
         resetSession();
         assert session.getMapper(BlogMapper.class).selectBlog(3).title == "Groovy";
@@ -61,7 +63,7 @@ class SqlSessionTest {
     @Test
     public void deleteBlog() throws Exception {
         int expectedEffectLines = 1;
-        assert session.getMapper(BlogMapper).deleteBlog(1) == expectedEffectLines;
+        assert blogs.deleteBlog(1) == expectedEffectLines;
         session.commit();
         resetSession();
         assert session.getMapper(BlogMapper.class).selectBlog(1) == null;
@@ -70,7 +72,7 @@ class SqlSessionTest {
     @Test
     public void autoCommitTurnedOff() throws Exception {
         int expectedEffectLines = 1;
-        assert session.getMapper(BlogMapper).deleteBlog(1) == expectedEffectLines;
+        assert blogs.deleteBlog(1) == expectedEffectLines;
         resetSession();
         assert session.getMapper(BlogMapper.class).selectBlog(1).title == "MyBatis";
     }
@@ -78,7 +80,7 @@ class SqlSessionTest {
     @Test
     public void updateBlog() throws Exception {
         int expectedEffectLines = 1;
-        assert session.getMapper(BlogMapper).updateBlog(new Blog(id: 1, title: 'mybatis')) == expectedEffectLines;
+        assert blogs.updateBlog(new Blog(id: 1, title: 'mybatis')) == expectedEffectLines;
         session.commit();
         resetSession();
         assert session.getMapper(BlogMapper.class).selectBlog(1).title == "mybatis";
