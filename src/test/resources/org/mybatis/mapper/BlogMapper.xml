@@ -8,4 +8,15 @@
         select * from blogs where id=#{id}
     </select>
 
+    <insert id="createNewBlog">
+        insert into blogs (id,title) values(#{id},#{title})
+    </insert>
+
+    <delete id="deleteBlog">
+        delete from blogs where id=#{id}
+    </delete>
+
+    <delete id="updateBlog">
+        update blogs set title=#{title} where id=#{id}
+    </delete>
 </mapper>        

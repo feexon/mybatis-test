@@ -5,5 +5,6 @@ package org.mybatis.pojos
  * @version 1.0 2014/6/10,15:54
  */
 class Blog {
+    Integer id;
     String title;
 }

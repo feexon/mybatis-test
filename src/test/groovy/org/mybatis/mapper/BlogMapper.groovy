@@ -8,4 +8,10 @@ import org.mybatis.pojos.Blog
  */
 public interface BlogMapper {
     Blog selectBlog(int blogId);
+
+    def createNewBlog(Blog blog);
+
+    def deleteBlog(int blogId);
+
+    def updateBlog(Blog blog);
 }

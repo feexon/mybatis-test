@@ -5,7 +5,9 @@
 <configuration>
     <environments default="product">
         <environment id="product">
-            <transactionManager type="JDBC"/>
+            <transactionManager type="JDBC">
+                <property name="desiredAutoCommit" value="false"/>
+            </transactionManager>
             <dataSource type="POOLED">
                 <property name="driver" value="org.hsqldb.jdbc.JDBCDriver"/>
                 <property name="url" value="jdbc:hsqldb:./db/mybatis.sqlite"/>
