@@ -1,2 +1,3 @@
 rootProject.name = 'mybatis'
+include ":mybatis-test", ':mybatis-spring'
 

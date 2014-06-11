@@ -7,40 +7,6 @@ buildscript {
         classpath "com.github.marceloemanoel:gradle-migrations:0.2.1"
     }
 }
-apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'idea'
-
-sourceCompatibility = 1.5
-version = '1.0'
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
-dependencies {
-
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile 'org.mybatis:mybatis:3.0.6'
-    compile 'org.codehaus.groovy:groovy-all:2.2.1'
-
-
-
-    compile 'org.hsqldb:hsqldb:2.2.9'
-}
-
-idea.module {
-    downloadSources = false
-    downloadJavadoc = false
-    inheritOutputs = false
-    outputDir = sourceSets.main.output.classesDir
-    testOutputDir = sourceSets.test.output.classesDir
-    excludeDirs += [file('.idea'), file('gradle')]
-
-}
-
-
 apply plugin: 'migrations'
 configurations {
     migrationsDriver
@@ -49,10 +15,48 @@ dependencies {
     migrationsDriver 'org.hsqldb:hsqldb:2.2.9'
 }
 migrations {
-    baseDir = "$projectDir/src/main/migrations"
+    baseDir = "$projectDir/migrations"
     environment = "test"
 }
 
 migrateNew {
     fileDescription = '@'
+}
+
+allprojects {
+    apply plugin: 'idea'
+    sourceCompatibility = 1.5
+    version = '1.0'
+}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile 'org.mybatis:mybatis:3.0.6'
+        compile 'org.codehaus.groovy:groovy-all:2.2.1'
+
+
+
+        compile 'org.hsqldb:hsqldb:2.2.9'
+    }
+
+    idea.module {
+        downloadSources = false
+        downloadJavadoc = false
+        inheritOutputs = false
+        outputDir = sourceSets.main.output.classesDir
+        testOutputDir = sourceSets.test.output.classesDir
+    }
+}
+
+idea.module {
+    excludeDirs += [file('.idea'), file('gradle')]
 }
