@@ -5,4 +5,6 @@ dependencies {
     compile 'org.springframework:spring-jdbc:3.2.0.RELEASE'
 
     testCompile 'org.springframework:spring-test:3.2.0.RELEASE'
+
+    compile 'javax.transaction:transaction-api:1.1'
 }
