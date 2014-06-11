@@ -1,0 +1,4 @@
+dependencies {
+
+    compile 'org.springframework:spring-tx:3.2.0.RELEASE'
+}
