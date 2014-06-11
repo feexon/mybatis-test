@@ -12,8 +12,8 @@
         <property name="dataSource" ref="jdbc"/>
         <property name="mapperLocations" value="classpath*:org/mybatis/mapper/*.xml"/>
     </bean>
-    <bean id="blogMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-        <property name="mapperInterface" value="org.mybatis.mapper.BlogMapper"/>
-    </bean>
+   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="org.mybatis.mapper"/>
+       <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+   </bean>
 </beans>
