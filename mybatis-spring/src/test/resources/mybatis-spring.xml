@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+        <property name="dataSource">
+            <bean class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+                <property name="driverClass" value="org.hsqldb.jdbc.JDBCDriver"/>
+                <property name="url" value="jdbc:hsqldb:./db/mybatis.sqlite"/>
+                <property name="username" value="sa"/>
+                <property name="password" value="sa"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="blogMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="org.mybatis.mapper.BlogMapper"/>
+    </bean>
+</beans>
