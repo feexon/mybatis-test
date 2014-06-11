@@ -1,5 +1,5 @@
 dependencies{
-    compile project(":mybatis-test-commons")
+    compile project(path:":mybatis-test-commons",configuration:'testScope')
 }
 
 

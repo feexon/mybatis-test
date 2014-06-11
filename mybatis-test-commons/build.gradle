@@ -1,4 +1,14 @@
+configurations{
+    testScope
+}
 dependencies {
-
     compile 'org.springframework:spring-tx:3.2.0.RELEASE'
+}
+task testJars(type: Jar) {
+
+    dependsOn testClasses
+    from sourceSets.test.output
+}
+artifacts {
+    testScope testJars
 }

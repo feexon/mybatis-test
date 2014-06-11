@@ -48,9 +48,12 @@ subprojects {
     idea.module {
         downloadSources = false
         downloadJavadoc = false
-        inheritOutputs = false
+        inheritOutputDirs = false
         outputDir = sourceSets.main.output.classesDir
         testOutputDir = sourceSets.test.output.classesDir
+    }
+    test {
+        workingDir rootDir
     }
 }
 
