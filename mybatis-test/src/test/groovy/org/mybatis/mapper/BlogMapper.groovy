@@ -9,9 +9,9 @@ import org.mybatis.pojos.Blog
 public interface BlogMapper {
     Blog selectBlog(int blogId);
 
-    def createNewBlog(Blog blog);
+    int createNewBlog(Blog blog);
 
-    def deleteBlog(int blogId);
+    int deleteBlog(int blogId);
 
-    def updateBlog(Blog blog);
+    int updateBlog(Blog blog);
 }

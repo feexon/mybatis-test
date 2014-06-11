@@ -40,11 +40,8 @@ subprojects {
     dependencies {
 
         testCompile group: 'junit', name: 'junit', version: '4.11'
-        compile 'org.mybatis:mybatis:3.0.6'
+        compile 'org.mybatis:mybatis:3.2.1'
         compile 'org.codehaus.groovy:groovy-all:2.2.1'
-
-
-
         compile 'org.hsqldb:hsqldb:2.2.9'
     }
 
