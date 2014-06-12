@@ -17,7 +17,8 @@ import org.springframework.transaction.annotation.Transactional
  */
 
 @ContextConfiguration("classpath:mybatis-spring.xml")
-class SpringMybatisTest extends AbstractTransactionalJUnit4SpringContextTests{
+@TransactionConfiguration
+class SpringMybatisTest extends AbstractTransactionalJUnit4SpringContextTests {
     @Autowired
     private BlogMapper blogs;
 
@@ -30,5 +31,15 @@ class SpringMybatisTest extends AbstractTransactionalJUnit4SpringContextTests{
     public void insertBlog() throws Exception {
         blogs.createNewBlog(new Blog(id: 4, title: 'mybatis-spring'));
         assert blogs.selectBlog(4).title == 'mybatis-spring';
+    }
+
+    @Test
+    public void cacheDisabled() throws Exception {
+        assert blogs.selectBlog(1).title == 'MyBatis';
+
+        blogs.updateBlog(new Blog(id: 1, title: 'mybatis'));
+
+        assert blogs.selectBlog(1).title == 'mybatis'
+
     }
 }

@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.mybatis.mapper.BlogMapper">
-    <select id="selectBlog" parameterType="int" resultType="org.mybatis.pojos.Blog">
+    <cache/>
+    <select id="selectBlog" useCache="true" fetchSize="10" parameterType="int" resultType="org.mybatis.pojos.Blog">
         select * from blogs where id=#{id}
     </select>
 
@@ -16,7 +17,7 @@
         delete from blogs where id=#{id}
     </delete>
 
-    <delete id="updateBlog">
+    <update id="updateBlog">
         update blogs set title=#{title} where id=#{id}
-    </delete>
+    </update>
 </mapper>        
