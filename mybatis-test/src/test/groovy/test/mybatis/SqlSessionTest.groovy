@@ -14,32 +14,8 @@ import org.mybatis.pojos.Blog
  * @author Administrator
  * @version 1.0 2014/6/10,15:33
  */
-class SqlSessionTest {
-    private SqlSession session
-    private SqlSessionFactory sessionFactory
-    private BlogMapper blogs;
+class SqlSessionTest extends MybatisTestCase {
 
-    @Before
-    public void beginSession() throws Exception {
-        SqlSessionFactoryBuilder sessionFactoryBuilder = new SqlSessionFactoryBuilder()
-        sessionFactory = sessionFactoryBuilder.build(Resources.getResourceAsReader("mybatis.xml"))
-        assert sessionFactory;
-        resetSession();
-        blogs = session.getMapper(BlogMapper);
-    }
-
-    private void resetSession() {
-        if (session != null) {
-            session.close();
-        }
-        session = sessionFactory.openSession();
-        assert session;
-    }
-
-    @After
-    public void endSession() throws Exception {
-        session.close();
-    }
 
     @Test
     public void queryFromStatement() throws Exception {
